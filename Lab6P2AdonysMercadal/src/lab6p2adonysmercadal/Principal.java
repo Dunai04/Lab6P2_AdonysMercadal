@@ -4,6 +4,7 @@
  */
 package lab6p2adonysmercadal;
 
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -62,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
         transferirboton = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        menupop = new javax.swing.JPopupMenu();
         Modificar = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
@@ -319,6 +320,11 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(arbol);
 
         listajug.setModel(new DefaultListModel());
+        listajug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listajugMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listajug);
 
         transferirboton.setText("Transferir->");
@@ -394,11 +400,16 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        Modificar.setText("jMenuItem4");
-        jPopupMenu1.add(Modificar);
+        Modificar.setText("Modificar");
+        Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarActionPerformed(evt);
+            }
+        });
+        menupop.add(Modificar);
 
-        Eliminar.setText("jMenuItem5");
-        jPopupMenu1.add(Eliminar);
+        Eliminar.setText("Eliminar");
+        menupop.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -567,6 +578,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        boolean validarnum = Pattern.compile("[0-9]").matcher(nombrejug.getText()).find();
+        if(nombrejug.getText().isEmpty()){
+            JOptionPane.showMessageDialog(crearjugador, "Hay campos incompletos");
+        }else if(validarnum){
+        JOptionPane.showMessageDialog(crearjugador, "El campo nombre contiene numeros");
+        }else{
         DefaultListModel model = (DefaultListModel) listajug.getModel();
         model.addElement(new Jugador(nombrejug.getText(),(Integer)edadspi.getValue(),(String)posicion.getSelectedItem()));
         listajug.setModel(model);
@@ -574,8 +591,23 @@ public class Principal extends javax.swing.JFrame {
         nombrejug.setText(" ");
         edadspi.setValue(15);
         posicion.setSelectedIndex(0);
-        
+        }
+       
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void listajugMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listajugMouseClicked
+        if(listajug.getSelectedIndex()>= 0){
+           if(evt.getButton()==3){
+               menupop.show(evt.getComponent(),evt.getX(), evt.getY());
+           }
+        }
+    }//GEN-LAST:event_listajugMouseClicked
+
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+         DefaultListModel listamodel = (DefaultListModel) listajug.getModel();
+            ((Jugador) listamodel.get(listajug.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Ingrese el nuevo nombre:"));
+            ((Jugador) listamodel.get(listajug.getSelectedIndex())).setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad nueva:")));
+    }//GEN-LAST:event_ModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -651,10 +683,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listajug;
+    private javax.swing.JPopupMenu menupop;
     private javax.swing.JTextField nombreequipo;
     private javax.swing.JTextField nombrejug;
     private javax.swing.JTextField paisequipo;
