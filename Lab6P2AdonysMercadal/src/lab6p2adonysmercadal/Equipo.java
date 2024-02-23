@@ -13,4 +13,53 @@ public class Equipo {
     String nombreequipo;
     String ciudad;
     String Estadio;
+
+    public Equipo() {
+    }
+    
+    
+    public Equipo(String equipo, String nombreequipo, String ciudad, String Estadio) {
+        this.equipo = equipo;
+        this.nombreequipo = nombreequipo;
+        this.ciudad = ciudad;
+        this.Estadio = Estadio;
+    }
+
+    public String getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+
+    public String getNombreequipo() {
+        return nombreequipo;
+    }
+
+    public void setNombreequipo(String nombreequipo) {
+        this.nombreequipo = nombreequipo;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getEstadio() {
+        return Estadio;
+    }
+
+    public void setEstadio(String Estadio) {
+        this.Estadio = Estadio;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipo{" + "equipo=" + equipo + ", nombreequipo=" + nombreequipo + ", ciudad=" + ciudad + ", Estadio=" + Estadio + '}';
+    }
+    
 }
