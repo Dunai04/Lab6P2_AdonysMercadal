@@ -409,6 +409,11 @@ public class Principal extends javax.swing.JFrame {
         menupop.add(Modificar);
 
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         menupop.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -608,6 +613,10 @@ public class Principal extends javax.swing.JFrame {
             ((Jugador) listamodel.get(listajug.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Ingrese el nuevo nombre:"));
             ((Jugador) listamodel.get(listajug.getSelectedIndex())).setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad nueva:")));
     }//GEN-LAST:event_ModificarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
