@@ -62,13 +62,13 @@
                       <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="114" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="ciudad" min="-2" pref="187" max="-2" attributes="0"/>
+                      <Component id="textciudad" min="-2" pref="187" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="94" max="-2" attributes="0"/>
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                      <Component id="estadio" min="-2" pref="188" max="-2" attributes="0"/>
+                      <Component id="textestadio" min="-2" pref="188" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="291" pref="291" max="-2" attributes="0"/>
@@ -100,14 +100,14 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <Component id="ciudad" min="-2" max="-2" attributes="0"/>
+                          <Component id="textciudad" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                              <Component id="estadio" min="-2" max="-2" attributes="0"/>
+                              <Component id="textestadio" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
@@ -188,9 +188,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="nombreequipo">
             </Component>
-            <Component class="javax.swing.JTextField" name="ciudad">
+            <Component class="javax.swing.JTextField" name="textciudad">
             </Component>
-            <Component class="javax.swing.JTextField" name="estadio">
+            <Component class="javax.swing.JTextField" name="textestadio">
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>

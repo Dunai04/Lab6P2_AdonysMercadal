@@ -9,28 +9,27 @@ package lab6p2adonysmercadal;
  * @author adony
  */
 public class Equipo {
-    String equipo;
+    String pais;
     String nombreequipo;
     String ciudad;
     String Estadio;
 
     public Equipo() {
     }
-    
-    
-    public Equipo(String equipo, String nombreequipo, String ciudad, String Estadio) {
-        this.equipo = equipo;
+
+    public Equipo(String pais, String nombreequipo, String ciudad, String Estadio) {
+        this.pais = pais;
         this.nombreequipo = nombreequipo;
         this.ciudad = ciudad;
         this.Estadio = Estadio;
     }
 
-    public String getEquipo() {
-        return equipo;
+    public String getPais() {
+        return pais;
     }
 
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getNombreequipo() {
@@ -56,6 +55,9 @@ public class Equipo {
     public void setEstadio(String Estadio) {
         this.Estadio = Estadio;
     }
+    
+    
+   
 
     @Override
     public String toString() {

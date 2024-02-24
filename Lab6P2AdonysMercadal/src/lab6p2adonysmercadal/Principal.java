@@ -41,8 +41,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         paisequipo = new javax.swing.JTextField();
         nombreequipo = new javax.swing.JTextField();
-        ciudad = new javax.swing.JTextField();
-        estadio = new javax.swing.JTextField();
+        textciudad = new javax.swing.JTextField();
+        textestadio = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         crearjugador = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
@@ -147,12 +147,12 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(154, 154, 154)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(estadio, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textestadio, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(291, 291, 291)
                 .addComponent(jButton2))
@@ -177,13 +177,13 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(estadio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textestadio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jButton2))
         );
@@ -550,9 +550,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode nodoRaiz, String nombre) {
+
         for (int i = 0; i < nodoRaiz.getChildCount(); i++) {
             DefaultMutableTreeNode nodoHijo = (DefaultMutableTreeNode) nodoRaiz.getChildAt(i);
-            if (nombre.equals(nodoHijo.getUserObject().toString())) {
+            if (nombre.equals(nodoHijo.getUserObject())) {
                 return nodoHijo;
             }
         }
@@ -635,21 +636,34 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         DefaultTreeModel tree = (DefaultTreeModel) this.tree.getModel();
         DefaultMutableTreeNode nodoraiz = (DefaultMutableTreeNode) tree.getRoot();
-        DefaultMutableTreeNode nodoequipo;
-        nodoequipo = new DefaultMutableTreeNode(new Equipo(nombreequipo.getText(), paisequipo.getText(), ciudad.getText(), estadio.getText()));
 
-        DefaultMutableTreeNode nodoPais = buscarNodo(nodoraiz, paisequipo.getText());
-        if (nodoPais == null) {
-            nodoPais = new DefaultMutableTreeNode(paisequipo.getText());
-            nodoraiz.add(nodoPais);
+        String paisNombre = paisequipo.getText();
+        String nombreEquipo = nombreequipo.getText();
+        String ciudad = textciudad.getText();
+        String estadio = textestadio.getText();
+
+        DefaultMutableTreeNode nodopais = null;
+
+        int numHijos = nodoraiz.getChildCount();
+        for (int i = 0; i < numHijos; i++) {
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) nodoraiz.getChildAt(i);
+            if (nodo.getUserObject().equals(paisNombre)) {
+                nodopais = nodo;
+                break;
+            }
         }
-
-        nodoPais.add(nodoequipo);
+        if (nodopais == null) {
+            nodopais = new DefaultMutableTreeNode(paisNombre);
+            nodoraiz.add(nodopais);
+            tree.reload();
+        }
+        DefaultMutableTreeNode nodo_equipo = new DefaultMutableTreeNode(new Equipo(paisNombre, nombreEquipo, ciudad, estadio));
+        nodopais.add(nodo_equipo);
         tree.reload();
-        nombreequipo.setText(" ");
-        paisequipo.setText(" ");
-        ciudad.setText(" ");
-        estadio.setText(" ");
+        paisequipo.setText("");
+        nombreequipo.setText("");
+        textciudad.setText("");
+        textestadio.setText(" ");
         JOptionPane.showMessageDialog(crearequipo, "Se agrego el equipo");
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -691,13 +705,11 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenuItem Modificar;
-    private javax.swing.JTextField ciudad;
     private javax.swing.JDialog crearequipo;
     private javax.swing.JButton crearequipos1;
     private javax.swing.JDialog crearjugador;
     private javax.swing.JButton crearjugadores1;
     private javax.swing.JSpinner edadspi;
-    private javax.swing.JTextField estadio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -734,6 +746,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField nombrejug;
     private javax.swing.JTextField paisequipo;
     private javax.swing.JComboBox<String> posicion;
+    private javax.swing.JTextField textciudad;
+    private javax.swing.JTextField textestadio;
     private javax.swing.JToolBar toolbar;
     private javax.swing.JDialog transferir;
     private javax.swing.JButton transferirboton;
