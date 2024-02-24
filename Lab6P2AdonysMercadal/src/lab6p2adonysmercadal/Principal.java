@@ -7,6 +7,8 @@ package lab6p2adonysmercadal;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -57,7 +59,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        arbol = new javax.swing.JTree();
+        tree = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
         listajug = new javax.swing.JList<>();
         transferirboton = new javax.swing.JButton();
@@ -118,6 +120,11 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(153, 255, 153));
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("agregar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -317,7 +324,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Transferencias");
 
-        jScrollPane1.setViewportView(arbol);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Equipos");
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(tree);
 
         listajug.setModel(new DefaultListModel());
         listajug.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -409,11 +418,6 @@ public class Principal extends javax.swing.JFrame {
         menupop.add(Modificar);
 
         Eliminar.setText("Eliminar");
-        Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarActionPerformed(evt);
-            }
-        });
         menupop.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -545,6 +549,16 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode nodoRaiz, String nombre) {
+        for (int i = 0; i < nodoRaiz.getChildCount(); i++) {
+            DefaultMutableTreeNode nodoHijo = (DefaultMutableTreeNode) nodoRaiz.getChildAt(i);
+            if (nombre.equals(nodoHijo.getUserObject().toString())) {
+                return nodoHijo;
+            }
+        }
+        return null;
+    }
+
     private void paisequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paisequipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paisequipoActionPerformed
@@ -555,19 +569,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         crearequipo.setVisible(rootPaneCheckingEnabled);
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       crearjugador.setVisible(rootPaneCheckingEnabled);
+        crearjugador.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void crearequipos1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearequipos1MouseClicked
-      crearequipo.setVisible(rootPaneCheckingEnabled);
+        crearequipo.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_crearequipos1MouseClicked
 
     private void crearjugadores1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearjugadores1MouseClicked
-       crearjugador.setVisible(rootPaneCheckingEnabled);
+        crearjugador.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_crearjugadores1MouseClicked
 
     private void transferirbotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferirbotonActionPerformed
@@ -579,44 +593,65 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-       transferir.setVisible(rootPaneCheckingEnabled);
+        transferir.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         boolean validarnum = Pattern.compile("[0-9]").matcher(nombrejug.getText()).find();
-        if(nombrejug.getText().isEmpty()){
+        if (nombrejug.getText().isEmpty()) {
             JOptionPane.showMessageDialog(crearjugador, "Hay campos incompletos");
-        }else if(validarnum){
-        JOptionPane.showMessageDialog(crearjugador, "El campo nombre contiene numeros");
-        }else{
-        DefaultListModel model = (DefaultListModel) listajug.getModel();
-        model.addElement(new Jugador(nombrejug.getText(),(Integer)edadspi.getValue(),(String)posicion.getSelectedItem()));
-        listajug.setModel(model);
-        JOptionPane.showMessageDialog(crearjugador, "Jugador agregado");
-        nombrejug.setText(" ");
-        edadspi.setValue(15);
-        posicion.setSelectedIndex(0);
+        } else if (validarnum) {
+            JOptionPane.showMessageDialog(crearjugador, "El campo nombre contiene numeros");
+        } else {
+            DefaultListModel model = (DefaultListModel) listajug.getModel();
+            model.addElement(new Jugador(nombrejug.getText(), (Integer) edadspi.getValue(), (String) posicion.getSelectedItem()));
+            listajug.setModel(model);
+            JOptionPane.showMessageDialog(crearjugador, "Jugador agregado");
+            nombrejug.setText(" ");
+            edadspi.setValue(15);
+            posicion.setSelectedIndex(0);
         }
-       
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void listajugMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listajugMouseClicked
-        if(listajug.getSelectedIndex()>= 0){
-           if(evt.getButton()==3){
-               menupop.show(evt.getComponent(),evt.getX(), evt.getY());
-           }
+        if (listajug.getSelectedIndex() >= 0) {
+            if (evt.getButton() == 3) {
+                menupop.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_listajugMouseClicked
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-         DefaultListModel listamodel = (DefaultListModel) listajug.getModel();
-            ((Jugador) listamodel.get(listajug.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Ingrese el nuevo nombre:"));
-            ((Jugador) listamodel.get(listajug.getSelectedIndex())).setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad nueva:")));
+        DefaultListModel listamodel = (DefaultListModel) listajug.getModel();
+        ((Jugador) listamodel.get(listajug.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Ingrese el nuevo nombre:"));
+        ((Jugador) listamodel.get(listajug.getSelectedIndex())).setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad nueva:")));
+        if (((Jugador) listamodel.get(listajug.getSelectedIndex())).getEdad() < 15) {
+            ((Jugador) listamodel.get(listajug.getSelectedIndex())).setEdad(15);
+            JOptionPane.showMessageDialog(transferir, "edad invalidad, se puso 15 por default");
+        }
     }//GEN-LAST:event_ModificarActionPerformed
 
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        
-    }//GEN-LAST:event_EliminarActionPerformed
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        DefaultTreeModel tree = (DefaultTreeModel) this.tree.getModel();
+        DefaultMutableTreeNode nodoraiz = (DefaultMutableTreeNode) tree.getRoot();
+        DefaultMutableTreeNode nodoequipo;
+        nodoequipo = new DefaultMutableTreeNode(new Equipo(nombreequipo.getText(), paisequipo.getText(), ciudad.getText(), estadio.getText()));
+
+        DefaultMutableTreeNode nodoPais = buscarNodo(nodoraiz, paisequipo.getText());
+        if (nodoPais == null) {
+            nodoPais = new DefaultMutableTreeNode(paisequipo.getText());
+            nodoraiz.add(nodoPais);
+        }
+
+        nodoPais.add(nodoequipo);
+        tree.reload();
+        nombreequipo.setText(" ");
+        paisequipo.setText(" ");
+        ciudad.setText(" ");
+        estadio.setText(" ");
+        JOptionPane.showMessageDialog(crearequipo, "Se agrego el equipo");
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -656,7 +691,6 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenuItem Modificar;
-    private javax.swing.JTree arbol;
     private javax.swing.JTextField ciudad;
     private javax.swing.JDialog crearequipo;
     private javax.swing.JButton crearequipos1;
@@ -703,5 +737,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JToolBar toolbar;
     private javax.swing.JDialog transferir;
     private javax.swing.JButton transferirboton;
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }
