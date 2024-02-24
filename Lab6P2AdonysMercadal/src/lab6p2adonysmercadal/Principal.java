@@ -337,6 +337,11 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(listajug);
 
         transferirboton.setText("Transferir->");
+        transferirboton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transferirbotonMouseClicked(evt);
+            }
+        });
         transferirboton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transferirbotonActionPerformed(evt);
@@ -549,16 +554,6 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode nodoRaiz, String nombre) {
-
-        for (int i = 0; i < nodoRaiz.getChildCount(); i++) {
-            DefaultMutableTreeNode nodoHijo = (DefaultMutableTreeNode) nodoRaiz.getChildAt(i);
-            if (nombre.equals(nodoHijo.getUserObject())) {
-                return nodoHijo;
-            }
-        }
-        return null;
-    }
 
     private void paisequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paisequipoActionPerformed
         // TODO add your handling code here:
@@ -666,6 +661,10 @@ public class Principal extends javax.swing.JFrame {
         textestadio.setText(" ");
         JOptionPane.showMessageDialog(crearequipo, "Se agrego el equipo");
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void transferirbotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transferirbotonMouseClicked
+     JOptionPane.showMessageDialog(rootPane, "se intento banda :{");
+    }//GEN-LAST:event_transferirbotonMouseClicked
 
     /**
      * @param args the command line arguments
